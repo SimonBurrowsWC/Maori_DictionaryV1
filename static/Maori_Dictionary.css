@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: rgba(236, 240, 241, 1.0);
+    background-color: rgba(0, 255, 0, 0.25);
 }
 
 .container {
@@ -45,13 +45,13 @@ h3, h4 {
 }
 
 nav {
-    background-color: rgba(44, 62, 80, 1.0); /* darkest blue */
+    background-color: rgb(1, 86, 0); /* darkest blue */
     text-align: center;
     /*color: rgba(52, 152, 219, 1.0);!*light blue*!*/
     font-size: 1.5rem;
     padding-top: 0.4rem;
     padding-bottom: 0.7rem;
-    color: rgba(52, 152, 219, 1.0); /*light blue*/
+    color: rgb(41, 255, 149); /*light blue*/
 }
 
 .navbar-brand {
@@ -76,65 +76,13 @@ nav a {
 nav a:hover {
     /*color: rgba(44, 62, 80, 1.0); !* darkest blue *!*/
     /*background-color: rgba(52, 152, 219, 1.0); !*light blue*!*/
-    border-bottom: 3px solid rgba(52, 152, 219, 1.0);
+    border-bottom: 3px solid rgb(41, 255, 149);
 }
 
 a, a:visited {
-    color: rgba(52, 152, 219, 1.0);
+    color: rgb(33, 197, 116);
     /*color:hotpink;*/
     text-decoration: none;
-}
-
-.product-box img {
-    /*max-width:200px;*/
-}
-
-.products {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
-.product-box {
-    /*width: 13vw;*/
-    width: 32%;
-    /*float: left;*/
-    /*display: table-cell;*/
-    /*padding: 0.5rem;*/
-    /*margin: 1vw;*/
-    border: 1px solid rgba(189, 195, 199, 1.0);
-    color: rgba(44, 62, 80, 1.0);
-    margin-bottom: 0.5rem;
-}
-
-.product-box-heading {
-    padding: 0.5rem;
-}
-
-.product-box-image {
-    max-height: 250px;
-    overflow: hidden;
-}
-
-.product-box-info {
-    padding: 0.5rem;
-
-}
-
-.product-box h3 {
-    font-size: 1.2rem;
-    text-align: center;
-}
-
-.product-box p {
-    font-size: 0.8rem;
-    margin-bottom: 0.3rem;
-}
-
-.product-box a {
-    border: 1px solid tomato;
-    padding: 0.3rem;
-    text-align: right;
 }
 
 .myform {
@@ -170,40 +118,4 @@ a, a:visited {
 .form-group input {
     padding: 0.3rem;
     width: 100%;
-}
-
-table {
-    border-collapse: collapse;
-}
-
-.cart-table > thead {
-    font-weight: bold;
-}
-
-.cart-table td {
-    padding: 0.2rem 1rem;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-.cart-total {
-    font-weight: bold;
-}
-
-
-@media only screen and (max-width: 600px) {
-    .container {
-        width: 100%;
-    }
-
-    .product-box {
-        width: 49%;
-    }
-}
-
-
-@media only screen and (max-width: 400px) {
-    .product-box {
-        width: 100%;
-    }
 }
