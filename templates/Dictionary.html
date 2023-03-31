@@ -9,13 +9,15 @@ Dictionary
 {% endblock %}
 
 {% block main %}
-<p>Put dictionary here.</p>
-    <div id="Dictionary">
+    <div class="Dictionary">
         {% for word in words %}
-            <p>{{ word[0] }}</p>
-            <p>{{ word[1] }}</p>
-            <p>{{ word[2] }}</p>
-            <p>{{ word[3] }}</p>
+            <div class="Word-Box">
+                <h3>Maori: {{ word[1] }}</h3>
+                <h3>English: {{ word[2] }}</h3>
+                <p>Definition: {{ word[3] }}</p>
+                <p>Level: {{ word[4] }}</p>
+                <p>Category: {{ word[5] }}</p>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

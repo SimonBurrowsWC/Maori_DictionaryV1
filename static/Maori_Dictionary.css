@@ -43,6 +43,9 @@ h3, h4 {
     text-align: center;
     margin: 2rem 0 0.5rem 0;
 }
+p {
+    text-align: center;
+}
 
 nav {
     background-color: rgb(1, 86, 0); /* darkest blue */
@@ -119,6 +122,18 @@ a, a:visited {
     padding: 0.3rem;
     width: 100%;
 }
-#dictionry {
+.dictionary {
+    display: flex;
+    flex-wrap: wrap;
 
+}
+.Word-Box{
+    width: 90%;
+    float: left;
+    display: table-cell;
+    padding: .5rem;
+    border: 1px solid rgba(189, 195, 199, 1.0);
+    color: rgb(0, 0, 0);
+    margin-left: 5%;
+    margin-bottom: .5%;
 }

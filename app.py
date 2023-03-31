@@ -2,8 +2,7 @@ from flask import Flask, render_template
 import sqlite3
 from sqlite3 import Error
 
-
-DATABASE ="\dictionary.db"
+DATABASE = "dictionary.db"
 
 app = Flask(__name__)
 
@@ -25,7 +24,7 @@ def render_home():  # put application's code here
 @app.route('/dictionary')
 def render_dictionary():  # put application's code here
     con = create_connection(DATABASE)
-    query = "SELECT id, Maori_Word, English_Word, Definition, Level, catagory FROM products"
+    query = "SELECT id, Maori_Word, English_Word, Definition, Level, catagory FROM words"
     cur = con.cursor()
     cur.execute(query)
     word_list = cur.fetchall()
