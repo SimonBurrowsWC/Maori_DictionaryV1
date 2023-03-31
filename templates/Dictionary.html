@@ -10,4 +10,12 @@ Dictionary
 
 {% block main %}
 <p>Put dictionary here.</p>
+    <div id="Dictionary">
+        {% for word in words %}
+            <p>{{ word[0] }}</p>
+            <p>{{ word[1] }}</p>
+            <p>{{ word[2] }}</p>
+            <p>{{ word[3] }}</p>
+        {% endfor %}
+    </div>
 {% endblock %}

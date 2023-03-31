@@ -10,8 +10,8 @@ app = Flask(__name__)
 
 def create_connection(db_file):
     try:
-        conection = sqlite3.connect(db_file)
-        return conection
+        connection = sqlite3.connect(db_file)
+        return connection
     except Error as e:
         print(e)
     return None
@@ -26,10 +26,6 @@ def render_home():  # put application's code here
 def render_dictionary():  # put application's code here
     con = create_connection(DATABASE)
     query = "SELECT id, Maori_Word, English_Word, Definition, Level, catagory FROM products"
-    cur = con.cursor()
-    cur.execute(query)
-    product_list = cur.fetchall()
-    query = "SELECT id, name FROM category"
     cur = con.cursor()
     cur.execute(query)
     word_list = cur.fetchall()
