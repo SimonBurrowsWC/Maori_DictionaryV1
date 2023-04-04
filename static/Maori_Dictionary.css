@@ -140,4 +140,7 @@ a, a:visited {
 .Sort_Menu{
     text-align: center;
     font-weight: bolder;
+    margin-left:48%;
+    margin-right: 48%;
+    margin-bottom: 1%;
 }

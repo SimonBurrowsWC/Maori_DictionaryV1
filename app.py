@@ -21,16 +21,18 @@ def render_home():  # put application's code here
     return render_template("home.html")
 
 
-@app.route('/dictionary/sort_by:<sort_method>/filter_by:<filter_method>')
-def render_dictionary(sort_method, filter_method):  # put application's code here
+@app.route('/dictionary/sort_by:<sort_method>')
+def render_dictionary(sort_method):  # put application's code here
     con = create_connection(DATABASE)
-    query = "SELECT id, Maori_Word, English_Word, Definition, Level, catagory FROM words " \
-            f"ORDER BY {sort_method} WHERE {filter_method}=?"
+    query = f"SELECT * FROM words ORDER BY {sort_method} "
     cur = con.cursor()
     cur.execute(query, )
     word_list = cur.fetchall()
     con.close()
-    return render_template("Dictionary.html", words=word_list)
+    if sort_method == "id":
+        sort_method = "Default"
+    sort_method = sort_method.replace("_", " ")
+    return render_template("Dictionary.html", words=word_list, sort=sort_method)
 
 
 if __name__ == '__main__':
