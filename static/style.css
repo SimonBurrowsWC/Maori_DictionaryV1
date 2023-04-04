@@ -33,6 +33,7 @@ h1, h2, h3, h4 {
     font-family: 'Suez One', serif;
     color: #000;
     text-shadow: 2px 2px 4px #fff;
+    text-align: center;
 }
 
 p {
@@ -44,8 +45,8 @@ a {
 }
 
 img {
-    width: 50%;
-    align-content: last;
+    width: 30%;
+    align-self: end;
 }
 .dataForm {
     margin: 1rem 0;
@@ -286,7 +287,7 @@ footer img {
     }
 
     main {
-        background-image: url('/poutama.jpg');
+        background-image: url('/static/images/poutama.jpg');
     }
     .formRow {
         display: grid;
@@ -307,7 +308,6 @@ footer img {
 .dictionary {
     display: flex;
     flex-wrap: wrap;
-
 }
 .Word-Box{
     width: 90%;
@@ -318,6 +318,8 @@ footer img {
     color: rgb(0, 0, 0);
     margin-left: 5%;
     margin-bottom: .5%;
+    background-image: url('/static/images/poutama.jpg');
+    text-align: center;
 }
 .Sort_Menu{
     text-align: center;

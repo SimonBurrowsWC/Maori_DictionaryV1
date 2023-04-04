@@ -21,12 +21,13 @@ Dictionary
         </div>
         {% for word in words %}
             <div class="Word-Box">
-                <h3>Maori: {{ word[1] }}</h3>
-                <h3>English: {{ word[2] }}</h3>
+                <h2>Maori: {{ word[1] }}</h2>
+                <h2>English: {{ word[2] }}</h2>
                 <p>Definition: {{ word[3] }}</p>
                 <p>Level: {{ word[4] }}</p>
                 <p>Category: {{ word[5] }}</p>
-                <img src = "/static/images/{{ word[2]}}.jpg">
+                <p>Photo:</p>
+                <img src = "/static/images/{{ word[6]}}.jpg" onerror="this.onerror=null; this.src='/static/images/noimage.png'" alt="{{word[6]}}">
             </div>
         {% endfor %}
     </div>

@@ -35,5 +35,15 @@ def render_dictionary(sort_method):  # put application's code here
     return render_template("Dictionary.html", words=word_list, sort=sort_method)
 
 
+@app.route('/login')
+def render_login():  # put application's code here
+    return render_template("login.html")
+
+
+@app.route('/signup')
+def render_signup():  # put application's code here
+    return render_template("signup.html")
+
+
 if __name__ == '__main__':
     app.run()

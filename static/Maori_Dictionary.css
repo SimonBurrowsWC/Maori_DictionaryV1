@@ -144,3 +144,7 @@ a, a:visited {
     margin-right: 48%;
     margin-bottom: 1%;
 }
+.word_image{
+    max-height: fit-content;
+    max-width: fit-content;
+}
