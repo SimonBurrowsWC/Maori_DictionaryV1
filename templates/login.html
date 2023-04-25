@@ -9,5 +9,19 @@ Login
 {% endblock %}
 
 {% block main %}
-<h3>Good luck logging in</h3>
+    <form class="myform" method="POST">
+        <div class="form-group">
+            <div class="form-label">Email:</div>
+            <div class="form-element"><input type="email" name="email" id="email" required></div>
+        </div>
+        <div class="form-group">
+            <div class="form-label">Password</div>
+            <div class="form-element"><input type="password" name="password" id="password" required></div>
+        </div>
+        <div class="form-group">
+            <div class="form-label"></div>
+            <div class="form-element"><input type="submit" value="Login"></div>
+        </div>
+    </form>
+    <p><br><br><br>If you don't yet have an account, please <a href="/signup">sign up</a></p>
 {% endblock %}
