@@ -8,7 +8,7 @@ DATABASE = "dictionary.db"
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = "FGdfhgskgfbHDgvOIYgfibg9i9ugh"
-category_list = ["Action", "Animals", "Clothing", "Culture / Religion = 4", "Descriptive", "Emotion", "Food", "Math / Number", "Outdoor", "People", "Places", "School", "Sport", "Time", "Plants", "Technology"]
+
 
 def create_connection(db_file):
     try:
@@ -43,9 +43,6 @@ def render_dictionary(category):  # put application's code here
     cur.execute(query, (category, ))
     word_list = cur.fetchall()
     con.close()
-    if category == "id":
-        category = "Default"
-    category = category.replace("_", " ")
 
     con = create_connection(DATABASE)
     query = "SELECT * FROM category"

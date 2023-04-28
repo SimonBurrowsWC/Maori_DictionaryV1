@@ -10,13 +10,12 @@ Dictionary
 
 {% block main %}
     <div class="Dictionary">
-        <h3>Sort: {{ filter }}</h3>
+        <h3>Sort: {{ categories[0][1]}}</h3>
         <div class = "Filter_Menu">
             <ul>
-                <li><a href = filter_by:Maori_Word>Maori</a></li>
-                <li><a href = filter_by:English_Word>English</a></li>
-                <li><a href = filter_by:Level>Level</a></li>
-                <li><a href = filter_by:Category>Category</a></li>
+                {% for category in categories %}
+                    <li><a href="/dictionary/filter_by:{{ category[0] }}">{{ category[1] }}</a></li>
+                {% endfor %}
             </ul>
         </div>
         {% for word in words %}
