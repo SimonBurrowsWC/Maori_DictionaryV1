@@ -15,7 +15,14 @@
                 <div class="navbar-links">
                     <a href="/">Home</a>
                     <a href="/dictionary/filter_by:1">Dictionary</a>
-                    <a href="/login">Login</a>
+                    {% if logged_in %}
+                        <a href="/logout">Logout</a>
+                    {% else %}
+                        <a href="/login">Login</a>
+                    {% endif %}
+                    {% if adminbool == true %}
+                        <a href="/admin">Admin</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>

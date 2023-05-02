@@ -28,11 +28,25 @@ def is_logged_in():
         return True
 
 
+def is_admin():
+    if is_logged_in():
+        con = create_connection(DATABASE)
+        query = f"SELECT admin FROM user"
+        cur = con.cursor()
+        cur.execute(query)
+        user = cur.fetchone()
+        admin = user[0]
+        con.close()
+        return admin
+    else:
+        return False
+
+
 @app.route('/')
 def render_home():  # put application's code here
     if is_logged_in():
         fname = "SELECT fname FROM user WHERE "
-    return render_template("home.html", logged_in = is_logged_in())
+    return render_template("home.html", logged_in=is_logged_in(), adminbool=is_admin())
 
 
 @app.route('/dictionary/filter_by:<category>')
@@ -40,18 +54,20 @@ def render_dictionary(category):  # put application's code here
     con = create_connection(DATABASE)
     query = f"SELECT * FROM words WHERE category=?"
     cur = con.cursor()
-    cur.execute(query, (category, ))
+    cur.execute(query, (category,))
     word_list = cur.fetchall()
     con.close()
 
     con = create_connection(DATABASE)
     query = "SELECT * FROM category"
     cur = con.cursor()
-    cur.execute(query)
+    cur.execute(query, )
     category_list = cur.fetchall()
+    current_category = category_list[int(category) - 1][1]
     con.close()
 
-    return render_template("Dictionary.html", words=word_list, filter=category, logged_in=is_logged_in(), categories=category_list)
+    return render_template("/Dictionary.html", words=word_list, filter=current_category, logged_in=is_logged_in(),
+                           categories=category_list, adminbool=is_admin())
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -70,8 +86,8 @@ def render_login():  # put application's code here
         user_data = cur.fetchone()
         con.close()
         print(user_data)
-        #if given the email is not in the database this will rasie an error
-        # would be better to find out how to see if the query will return an empty resultset
+        # if given the email is not in the database this will raise an error
+        # would be better to find out how to see if the query will return an empty result
         try:
             user_id = user_data[0]
             firstname = user_data[1]
@@ -79,7 +95,7 @@ def render_login():  # put application's code here
         except IndexError:
             return redirect("/login?error=Invalid+username+or+password")
 
-            #check if the pasword is invalid for the email adress 10:30#
+            # check if the pasword is invalid for the email adress 10:30#
 
         if not bcrypt.check_password_hash(db_password, password):
             return redirect(request.referrer + "?error=Email+invalid+or+password+incorrect")
@@ -90,7 +106,7 @@ def render_login():  # put application's code here
 
         print(session)
         return redirect('/')
-    return render_template("login.html", logged_in = is_logged_in())
+    return render_template("login.html", logged_in=is_logged_in())
 
 
 @app.route('/signup', methods=['POST', 'GET'])
@@ -127,7 +143,7 @@ def render_signup():  # put application's code here
 
         return redirect("\login")
 
-    return render_template("signup.html", logged_in = is_logged_in())
+    return render_template("signup.html", logged_in=is_logged_in())
 
 
 @app.route('/logout')
@@ -136,6 +152,62 @@ def render_logout():
     [session.pop(key) for key in list(session.keys())]
     print(list(session.keys()))
     return redirect('/?message=see+you+next+time!')
+
+
+@app.route('/admin')
+def render_admin():
+    if not is_logged_in():
+        return redirect('/?message=Need+to+be+logged+in.')
+    con = create_connection(DATABASE)
+    # Fetch the categories
+    query = "SELECT * FROM category"
+    cur = con.cursor()
+    cur.execute(query)
+    category_list = cur.fetchall()
+    con.close()
+    return render_template("admin.html", categories=category_list, logged_in=is_logged_in(), adminbool=is_admin())
+
+
+@app.route('/add_category', methods =['POST'])
+def render_add_category():
+    if request.method == "POST":
+        print(request.form)
+        cat_name = request.form.get('name').lower().strip()
+        print(cat_name)
+        con = create_connection(DATABASE)
+        query = "INSERT INTO category ('category_name') VALUES (?)"
+        cur = con.cursor()
+        cur.execute(query, (cat_name,))
+        con.commit()
+        con.close()
+        return redirect('/admin')
+
+
+@app.route('/delete_category', methods =['POST'])
+def render_delete_category():
+    if not is_admin():
+        return redirect('/?message=Need+to+be+logged+in.')
+    if request.method == "POST":
+        category = request.form.get('cat_id')
+        print(category)
+        category = category.split(", ")
+        cat_id = category[0]
+        cat_name = category[1]
+        return render_template("delete_confirm.html", cat_id=cat_id, cat_name=cat_name, type="category")
+    return redirect("/admin")
+
+
+@app.route('/delete_category_confirm/<cat_id>')
+def delete_category_confirm(cat_id):
+    if not is_logged_in():
+        return redirect('/?message=Need+to+be+logged+in.')
+    con = create_connection(DATABASE)
+    query = "DELETE FROM category WHERE id = ?"
+    cur = con.cursor()
+    cur.execute(query, (cat_id, ))
+    con.commit()
+    con.close()
+    return redirect("/admin")
 
 
 if __name__ == '__main__':
