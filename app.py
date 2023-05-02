@@ -42,10 +42,14 @@ def is_admin():
         return False
 
 
+def form_get(x):
+    return request.form.get(x)
+
+
 @app.route('/')
 def render_home():  # put application's code here
     if is_logged_in():
-        fname = "SELECT fname FROM user WHERE "
+        fname = "SELECT fname FROM user"
     return render_template("home.html", logged_in=is_logged_in(), adminbool=is_admin())
 
 
@@ -208,6 +212,20 @@ def delete_category_confirm(cat_id):
     con.commit()
     con.close()
     return redirect("/admin")
+
+
+@app.route('/add_word', methods =['POST'])
+def render_add_word():
+    if request.method == "POST":
+        word_info = request.form
+        con = create_connection(DATABASE)
+        print(word_info)
+        query = f"INSERT INTO words ('Maori_Word', 'English_Word', 'Definition', 'Level', 'category', 'image') VALUES (?)"
+        cur = con.cursor()
+        cur.execute(query, (word_info,))
+        con.commit()
+        con.close()
+        return redirect('/admin')
 
 
 if __name__ == '__main__':
