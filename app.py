@@ -168,8 +168,11 @@ def render_admin():
     cur = con.cursor()
     cur.execute(query)
     category_list = cur.fetchall()
+    query = "SELECT * FROM words"
+    cur.execute(query)
+    word_list = cur.fetchall()
     con.close()
-    return render_template("admin.html", categories=category_list, logged_in=is_logged_in(), adminbool=is_admin())
+    return render_template("admin.html", words = word_list, categories=category_list, logged_in=is_logged_in(), adminbool=is_admin())
 
 
 @app.route('/add_category', methods =['POST'])
@@ -218,14 +221,33 @@ def delete_category_confirm(cat_id):
 def render_add_word():
     if request.method == "POST":
         word_info = request.form
+        Maori_Word = request.form.get('Maori').title().strip()
+        English_Word = request.form.get('English').title().strip()
+        Definition = request.form.get('Definition').lower().strip()
+        Level = request.form.get('Level').lower().strip()
+        category = request.form.get('cat_id').lower().strip()[1]
+        image = request.form.get('Image').strip()
         con = create_connection(DATABASE)
-        print(word_info)
-        query = f"INSERT INTO words ('Maori_Word', 'English_Word', 'Definition', 'Level', 'category', 'image') VALUES (?)"
         cur = con.cursor()
-        cur.execute(query, (word_info,))
+        query = "INSERT INTO words (Maori_Word, English_Word, Definition, Level, category, image) VALUES(?, ?, ?, ?, ?, ?)"
+        cur.execute(query, (Maori_Word, English_Word, Definition, Level, category, image))
         con.commit()
         con.close()
         return redirect('/admin')
+
+
+@app.route('/delete_word', methods =['POST'])
+def render_delete_word():
+    if not is_admin():
+        return redirect('/?message=Need+to+be+an+admin.')
+    if request.method == "POST":
+        word = request.form.get('word_id')
+        print(word)
+        word = word.split(", ")
+        word_id = word[0]
+        word_name = word[1]
+        return render_template("delete_confirm.html", word_id=word_id, word_name=word_name, type="word")
+    return redirect("/admin")
 
 
 if __name__ == '__main__':

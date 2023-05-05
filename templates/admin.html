@@ -52,13 +52,34 @@ Administration
         <div class="form-label"> <label for="name">Level: </label></div>
         <div class="form-element"><input type="number" name="Level" id="Level" required></div>
         <div class="form-label"> <label for="name">Category: </label></div>
-        <div class="form-element"><input type="text" name="Category" id="Category" required></div>
+        <div class="form-element"><select id = "cat_id" name="cat_id">
+                {% for category in categories %}
+                    <option value="{{ category[0] }}, {{ category[1] }}">{{ category[1] }}</option>
+                {% endfor %}
+            </select></div>
         <div class="form-label"> <label for="name">Image: </label></div>
         <div class="form-element"><input type="file" name="Image" id="Image" accept="image/*" required></div>
     </div>
     <div class="form-group">
         <div class="form-label"></div>
         <div class="form-element"><input type="submit" value="Add Word"></div>
+    </div>
+</form>
+<h4>Delete a word</h4>
+<form class="myform" method="post" action="/delete_word">
+    <div class="form-group">
+        <div class="form-label"> <label for="name">Word: </label></div>
+        <div class="form-element">
+            <select id = "word_id" name="word_id">
+                {% for word in words %}
+                    <option value="{{ word[0] }}, {{ word[1] }}, {{ word[2] }}, {{ word[3] }}, {{ word[4] }}, {{ word[5] }}">{{ word[2] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="form-label"></div>
+        <div class="form-element"><input type="submit" value="Delete Word"></div>
     </div>
 </form>
 {% endblock %}

@@ -7,7 +7,15 @@ Confirm Deletion
 {% endblock %}
 
 {% block main %}
+    {% if type == category %}
     <h3>Are you sure you want to delete {{ type }} {{ name }}?
         <a href="/delete_{{ type }}_confirm/{{ cat_id }}">Yes</a> /
         <a href="/admin">No</a></h3>
+    {% elif type == word %}
+    <h3>Are you sure you want to delete {{ type }} {{ name }}?
+        <a href="/delete_{{ type }}_confirm/{{ word_id }}">Yes</a> /
+        <a href="/admin">No</a></h3>
+    {% else %}
+        <a href="/admin">No</a></h3>
+    {% endif %}
 {% endblock %}
