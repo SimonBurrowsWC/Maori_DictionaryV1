@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a41562fd-12e4-40b1-aa31-4dd889645544" name="Changes" comment="Worked on the adding words">
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Flask Main" />
+        <option value="CSS File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e5560cfb-97ed-4a44-8606-86a20e7405c2" />
+        <option name="url" value="https://github.com/SimonBurrowsWC/Maori_DictionaryV1.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectId" id="2NRGh0tu1LdADqYvleqUM4NLQmo" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/20396/OneDrive - Wellington College/13 (12) DTS/Python/Coffe",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlite"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\20396\OneDrive - Wellington College\13 (12) DTS\Python\Maori_Words_Database_Website\templates" />
+      <recent name="C:\Users\20396\OneDrive - Wellington College\13 (12) DTS\Python\Maori_Words_Database_Website\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\20396\OneDrive - Wellington College\13 (12) DTS\Python\Maori_Words_Database_Website\static" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Maori_Words_Database_Website" type="Python.FlaskServer">
+      <module name="Maori_Words_Database_Website" />
+      <option name="target" value="$PROJECT_DIR$/app.py" />
+      <option name="targetType" value="PATH" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a41562fd-12e4-40b1-aa31-4dd889645544" name="Changes" comment="" />
+      <created>1679619596904</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679619596904</updated>
+      <workItem from="1679619598129" duration="1261000" />
+      <workItem from="1679880185375" duration="2856000" />
+      <workItem from="1680218313054" duration="439000" />
+      <workItem from="1680222909897" duration="2743000" />
+      <workItem from="1680488778248" duration="2950000" />
+      <workItem from="1680565098570" duration="2668000" />
+      <workItem from="1680643479627" duration="2860000" />
+      <workItem from="1680750410364" duration="45000" />
+      <workItem from="1682467596855" duration="46000" />
+      <workItem from="1682645312555" duration="3188000" />
+      <workItem from="1682984162715" duration="4558000" />
+      <workItem from="1683062662722" duration="3114000" />
+    </task>
+    <task id="LOCAL-00001" summary="testing">
+      <created>1679620744823</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1679620744823</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update">
+      <created>1680222944068</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680222944068</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Made the css centre the box the words and their definitions is in. Also Made it so the database is printed to the website">
+      <created>1680225524352</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680225524352</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Made the css centre the box the words and their definitions is in. Also Made it so the database is printed to the website">
+      <created>1680225539756</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680225539756</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Currently unstable, The dictionary sorts by the user selection.">
+      <created>1680491727277</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680491727277</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Adding images and css files">
+      <created>1680568051226</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680568051226</updated>
+    </task>
+    <task id="LOCAL-00007" summary="I cannot remember what I did this lesson apart from importing the templates">
+      <created>1680568318184</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1680568318184</updated>
+    </task>
+    <task id="LOCAL-00008" summary="working on the categoryies">
+      <created>1682648509357</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682648509357</updated>
+    </task>
+    <task id="LOCAL-00009" summary="unknown file">
+      <created>1682984188198</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1682984188198</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Worked on the adding words">
+      <created>1683065782256</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1683065782256</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="testing" />
+    <MESSAGE value="Update" />
+    <MESSAGE value="Made the css centre the box the words and their definitions is in. Also Made it so the database is printed to the website" />
+    <MESSAGE value="Currently unstable, The dictionary sorts by the user selection." />
+    <MESSAGE value="Adding images and css files" />
+    <MESSAGE value="I cannot remember what I did this lesson apart from importing the templates" />
+    <MESSAGE value="working on the categoryies" />
+    <MESSAGE value="unknown file" />
+    <MESSAGE value="Worked on the adding words" />
+    <option name="LAST_COMMIT_MESSAGE" value="Worked on the adding words" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Maori_Words_Database_Website$Maori_Words_Database_Website.coverage" NAME="Maori_Words_Database_Website Coverage Results" MODIFIED="1683065729801" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
+</project>

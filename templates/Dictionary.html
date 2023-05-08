@@ -24,9 +24,12 @@ Dictionary
                 <h2>English: {{ word[2] }}</h2>
                 <p>Definition: {{ word[3] }}</p>
                 <p>Level: {{ word[4] }}</p>
-                <p>Category: {{ word[5] }}</p>
+                <p>Category: {{ filter }}</p>
                 <p>Photo:</p>
-                <img src = "/static/images/{{ word[6]}}.jpg" onerror="this.onerror=null; this.src='/static/images/noimage.png'" alt="{{word[6]}}">
+                <img src = "/static/images/{{ word[6]}}" onerror="this.onerror=null; this.src='/static/images/noimage.png'" alt="{{word[6]}}">
+                {% if adminbool == True %}
+                    <p>Last edited: {{ word[7] }}</p>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

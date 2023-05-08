@@ -42,10 +42,6 @@ def is_admin():
         return False
 
 
-def form_get(x):
-    return request.form.get(x)
-
-
 @app.route('/')
 def render_home():  # put application's code here
     if is_logged_in():
@@ -175,7 +171,7 @@ def render_admin():
     return render_template("admin.html", words = word_list, categories=category_list, logged_in=is_logged_in(), adminbool=is_admin())
 
 
-@app.route('/add_category', methods =['POST'])
+@app.route('/add_category', methods =['POST', 'GET'])
 def render_add_category():
     if request.method == "POST":
         print(request.form)
@@ -217,7 +213,7 @@ def delete_category_confirm(cat_id):
     return redirect("/admin")
 
 
-@app.route('/add_word', methods =['POST'])
+@app.route('/add_word', methods=['POST'])
 def render_add_word():
     if request.method == "POST":
         word_info = request.form
@@ -228,9 +224,14 @@ def render_add_word():
         category = request.form.get('cat_id').lower().strip()[1]
         image = request.form.get('Image').strip()
         con = create_connection(DATABASE)
+        query = f"SELECT id FROM user"
         cur = con.cursor()
-        query = "INSERT INTO words (Maori_Word, English_Word, Definition, Level, category, image) VALUES(?, ?, ?, ?, ?, ?)"
-        cur.execute(query, (Maori_Word, English_Word, Definition, Level, category, image))
+        cur.execute(query)
+        last_edited = cur.fetchone()
+        print(last_edited[0])
+        query = "INSERT INTO words (Maori_Word, English_Word, Definition, Level, category, image, last_edited) " \
+                "VALUES(?, ?, ?, ?, ?, ?, ?)"
+        cur.execute(query, (Maori_Word, English_Word, Definition, Level, category, image, last_edited[0]))
         con.commit()
         con.close()
         return redirect('/admin')
@@ -245,8 +246,22 @@ def render_delete_word():
         print(word)
         word = word.split(", ")
         word_id = word[0]
-        word_name = word[1]
+        word_name = word[2]
         return render_template("delete_confirm.html", word_id=word_id, word_name=word_name, type="word")
+    return redirect("/admin")
+
+
+@app.route('/delete_word_confirm/<word_id>')
+def delete_word_confirm(word_id):
+    if not is_logged_in():
+        return redirect('/?message=Need+to+be+logged+in.')
+    con = create_connection(DATABASE)
+    query = "DELETE FROM words WHERE id = ?"
+    cur = con.cursor()
+    print(query, word_id)
+    cur.execute(query, (word_id, ))
+    con.commit()
+    con.close()
     return redirect("/admin")
 
 
