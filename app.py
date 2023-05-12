@@ -1,15 +1,19 @@
+# Imports all the required modules #
 from flask import Flask, render_template, redirect, request, session
 import sqlite3
 from sqlite3 import Error
 from flask_bcrypt import Bcrypt
 
+# Sets the name of the database file #
 DATABASE = "dictionary.db"
 
+# Variable declaration #
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = "FGdfhgskgfbHDgvOIYgfibg9i9ugh"
 
 
+# Creates a connection to the database so data can be pulled and pushed #
 def create_connection(db_file):
     try:
         connection = sqlite3.connect(db_file)
@@ -19,6 +23,7 @@ def create_connection(db_file):
     return None
 
 
+# Checks if the user is logged in by checking if an email is available in the current section#
 def is_logged_in():
     if session.get("email") is None:
         print("not logged in")
@@ -28,12 +33,13 @@ def is_logged_in():
         return True
 
 
+# Checks if the user is logged in then sees if the user has admin privileges #
 def is_admin():
     if is_logged_in():
         con = create_connection(DATABASE)
-        query = f"SELECT admin FROM user"
+        query = "SELECT admin FROM user WHERE id = ?"
         cur = con.cursor()
-        cur.execute(query)
+        cur.execute(query, (session['user_id'], ))
         user = cur.fetchone()
         admin = user[0]
         con.close()
@@ -42,13 +48,18 @@ def is_admin():
         return False
 
 
+# Loads the home page with the users first name #
 @app.route('/')
 def render_home():  # put application's code here
     if is_logged_in():
-        fname = "SELECT fname FROM user"
-    return render_template("home.html", logged_in=is_logged_in(), adminbool=is_admin())
+        fname = session['firstname']
+    else:
+        fname = ''
+    return render_template("home.html", logged_in=is_logged_in(), adminbool=is_admin(), First_Name=fname)
 
 
+# Renders the dictionary sorted by the category that the user selects and if the user is an admin it will also display
+# the last editor #
 @app.route('/dictionary/filter_by:<category>')
 def render_dictionary(category):  # put application's code here
     con = create_connection(DATABASE)
@@ -70,24 +81,23 @@ def render_dictionary(category):  # put application's code here
                            categories=category_list, adminbool=is_admin())
 
 
+# If the user is logged in it will redirect them to the home page #
 @app.route('/login', methods=['POST', 'GET'])
 def render_login():  # put application's code here
     if is_logged_in():
         return redirect('/')
     print("Loging in")
     if request.method == "POST":
+        # Checks if the email is in the database #
         email = request.form["email"].strip().lower()
         password = request.form["password"].strip()
-        print(email)
         query = "SELECT id, fname, password FROM user WHERE email = ?"
         con = create_connection(DATABASE)
         cur = con.cursor()
         cur.execute(query, (email,))
         user_data = cur.fetchone()
         con.close()
-        print(user_data)
-        # if given the email is not in the database this will raise an error
-        # would be better to find out how to see if the query will return an empty result
+
         try:
             user_id = user_data[0]
             firstname = user_data[1]
@@ -95,7 +105,7 @@ def render_login():  # put application's code here
         except IndexError:
             return redirect("/login?error=Invalid+username+or+password")
 
-            # check if the pasword is invalid for the email adress 10:30#
+            # check if the pasword is invalid for the email adress#
 
         if not bcrypt.check_password_hash(db_password, password):
             return redirect(request.referrer + "?error=Email+invalid+or+password+incorrect")
@@ -114,7 +124,6 @@ def render_signup():  # put application's code here
     if is_logged_in():
         return redirect('/menu/1')
     if request.method == 'POST':
-        print(request.form)
         fname = request.form.get('fname').title().strip()
         lname = request.form.get('lname').title().strip()
         email = request.form.get('email').lower().strip()
@@ -129,11 +138,11 @@ def render_signup():  # put application's code here
 
         hashed_password = bcrypt.generate_password_hash(password)
         con = create_connection(DATABASE)
-        query = "INSERT INTO user (fname, lname, email, password) VALUES (?, ?, ?, ?)"
+        query = "INSERT INTO user (fname, lname, email, password, admin) VALUES (?, ?, ?, ?, ?)"
         cur = con.cursor()
 
         try:
-            cur.execute(query, (fname, lname, email, hashed_password))
+            cur.execute(query, (fname, lname, email, hashed_password, 0))
         except sqlite3.IntegrityError:
             con.close()
             return redirect("\signup?error=Email+is+already+in+use")
@@ -168,15 +177,14 @@ def render_admin():
     cur.execute(query)
     word_list = cur.fetchall()
     con.close()
-    return render_template("admin.html", words = word_list, categories=category_list, logged_in=is_logged_in(), adminbool=is_admin())
+    return render_template("admin.html", words=word_list, categories=category_list, logged_in=is_logged_in(),
+                           adminbool=is_admin())
 
 
-@app.route('/add_category', methods =['POST', 'GET'])
+@app.route('/add_category', methods=['POST', 'GET'])
 def render_add_category():
     if request.method == "POST":
-        print(request.form)
         cat_name = request.form.get('name').lower().strip()
-        print(cat_name)
         con = create_connection(DATABASE)
         query = "INSERT INTO category ('category_name') VALUES (?)"
         cur = con.cursor()
@@ -186,13 +194,12 @@ def render_add_category():
         return redirect('/admin')
 
 
-@app.route('/delete_category', methods =['POST'])
+@app.route('/delete_category', methods=['POST'])
 def render_delete_category():
     if not is_admin():
         return redirect('/?message=Need+to+be+logged+in.')
     if request.method == "POST":
         category = request.form.get('cat_id')
-        print(category)
         category = category.split(", ")
         cat_id = category[0]
         cat_name = category[1]
@@ -207,7 +214,7 @@ def delete_category_confirm(cat_id):
     con = create_connection(DATABASE)
     query = "DELETE FROM category WHERE id = ?"
     cur = con.cursor()
-    cur.execute(query, (cat_id, ))
+    cur.execute(query, (cat_id,))
     con.commit()
     con.close()
     return redirect("/admin")
@@ -217,10 +224,10 @@ def delete_category_confirm(cat_id):
 def render_add_word():
     if request.method == "POST":
         word_info = request.form
-        Maori_Word = request.form.get('Maori').title().strip()
-        English_Word = request.form.get('English').title().strip()
-        Definition = request.form.get('Definition').lower().strip()
-        Level = request.form.get('Level').lower().strip()
+        maori_word = request.form.get('Maori').title().strip()
+        english_word = request.form.get('English').title().strip()
+        definition = request.form.get('Definition').lower().strip()
+        level = request.form.get('Level').lower().strip()
         category = request.form.get('cat_id').lower().strip()[1]
         image = request.form.get('Image').strip()
         con = create_connection(DATABASE)
@@ -228,22 +235,20 @@ def render_add_word():
         cur = con.cursor()
         cur.execute(query)
         last_edited = cur.fetchone()
-        print(last_edited[0])
         query = "INSERT INTO words (Maori_Word, English_Word, Definition, Level, category, image, last_edited) " \
                 "VALUES(?, ?, ?, ?, ?, ?, ?)"
-        cur.execute(query, (Maori_Word, English_Word, Definition, Level, category, image, last_edited[0]))
+        cur.execute(query, (maori_word, english_word, definition, level, category, image, last_edited[0]))
         con.commit()
         con.close()
         return redirect('/admin')
 
 
-@app.route('/delete_word', methods =['POST'])
+@app.route('/delete_word', methods=['POST'])
 def render_delete_word():
     if not is_admin():
         return redirect('/?message=Need+to+be+an+admin.')
     if request.method == "POST":
         word = request.form.get('word_id')
-        print(word)
         word = word.split(", ")
         word_id = word[0]
         word_name = word[2]
@@ -258,8 +263,7 @@ def delete_word_confirm(word_id):
     con = create_connection(DATABASE)
     query = "DELETE FROM words WHERE id = ?"
     cur = con.cursor()
-    print(query, word_id)
-    cur.execute(query, (word_id, ))
+    cur.execute(query, (word_id,))
     con.commit()
     con.close()
     return redirect("/admin")
