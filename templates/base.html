@@ -1,6 +1,7 @@
 <!DOCTYPE html>
     <html lang="en">
     <head>
+        <!-- General declaration and tab title -->
         <meta charset="UTF-8">
         <title>Maori Dictionary | {% block page_title %}{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +10,7 @@
         <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     </head>
     <body>
+        <!-- Shows the links at the top if the page and the 'admin' page if they are an admin -->
         <nav>
             <div class="container">
                 <div class="navbar-brand">Dictionary.</div>
@@ -27,6 +29,7 @@
             </div>
         </nav>
         <main>
+        <!-- The main part which could be anything using jinja -->
             <header>
                <h1>{% block pageheading %} {% endblock %}</h1>
             </header>

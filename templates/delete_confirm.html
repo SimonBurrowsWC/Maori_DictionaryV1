@@ -7,6 +7,7 @@ Confirm Deletion
 {% endblock %}
 
 {% block main %}
+    <!-- checks if the user wants to delete a category or a word then deletes the word if they confirm -->
     {% if type == "category" %}
     <h3>Are you sure you want to delete {{ type }} {{ cat_name }}?
         <a href="/delete_{{ type }}_confirm/{{ cat_id }}">Yes</a> /
@@ -16,6 +17,7 @@ Confirm Deletion
         <a href="/delete_{{ type }}_confirm/{{ word_id }}">Yes</a> /
         <a href="/admin">No</a></h3>
     {% else %}
+        <!-- if the type is neither then it displays an option for the user to return to the admin menu -->
         <a href="/admin">Return</a></h3>
     {% endif %}
 {% endblock %}

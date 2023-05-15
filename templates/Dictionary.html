@@ -22,13 +22,14 @@ Dictionary
             <div class="Word-Box">
                 <h2>Maori: {{ word[1] }}</h2>
                 <h2>English: {{ word[2] }}</h2>
-                <p>Definition: {{ word[3] }}</p>
-                <p>Level: {{ word[4] }}</p>
-                <p>Category: {{ filter }}</p>
-                <p>Photo:</p>
+                <p><b>Definition: {{ word[3] }}</b></p>
+                <p><b>Level: {{ word[4] }}</b></p>
+                <p><b>Category: {{ filter }}</b></p>
+                <p><b>Photo:</b></p>
                 <img src = "/static/images/{{ word[6]}}" onerror="this.onerror=null; this.src='/static/images/noimage.png'" alt="{{word[6]}}">
                 {% if adminbool == True %}
                     <p>Last edited: {{ word[7] }}</p>
+                    <a href="/admin">Edit Word</a>
                 {% endif %}
             </div>
         {% endfor %}

@@ -63,7 +63,7 @@ def render_home():  # put application's code here
 @app.route('/dictionary/filter_by:<category>')
 def render_dictionary(category):  # put application's code here
     con = create_connection(DATABASE)
-    query = f"SELECT * FROM words WHERE category=?"
+    query = "SELECT * FROM words WHERE category=?"
     cur = con.cursor()
     cur.execute(query, (category,))
     word_list = cur.fetchall()
@@ -105,8 +105,7 @@ def render_login():  # put application's code here
         except IndexError:
             return redirect("/login?error=Invalid+username+or+password")
 
-            # check if the pasword is invalid for the email adress#
-
+            # check if the password matches the password for the specific email address#
         if not bcrypt.check_password_hash(db_password, password):
             return redirect(request.referrer + "?error=Email+invalid+or+password+incorrect")
 
@@ -115,27 +114,32 @@ def render_login():  # put application's code here
         session['firstname'] = firstname
 
         print(session)
+        # Returns the user to the home page #
         return redirect('/')
     return render_template("login.html", logged_in=is_logged_in())
 
 
 @app.route('/signup', methods=['POST', 'GET'])
-def render_signup():  # put application's code here
+def render_signup():
+    # If the user is logged in it sends them to the home page #
     if is_logged_in():
-        return redirect('/menu/1')
+        return redirect('/')
     if request.method == 'POST':
+        # Gets the information from the html form and sets them to the following variables #
         fname = request.form.get('fname').title().strip()
         lname = request.form.get('lname').title().strip()
         email = request.form.get('email').lower().strip()
         password = request.form.get('password')
         password2 = request.form.get('password2')
 
+        # Checks if the passwords match #
         if password != password2:
             return redirect("\signup?error=Passwords+do+not+match")
 
+        # Checks if the password is longer than 8 characters #
         if len(password) < 8:
             return redirect("/signup?error=Password+must+be+at+least+8+characters")
-
+        # Hashes the password then tries to insert into the database and returns an error if it is already in use #
         hashed_password = bcrypt.generate_password_hash(password)
         con = create_connection(DATABASE)
         query = "INSERT INTO user (fname, lname, email, password, admin) VALUES (?, ?, ?, ?, ?)"
@@ -155,6 +159,7 @@ def render_signup():  # put application's code here
     return render_template("signup.html", logged_in=is_logged_in())
 
 
+# Logs out the user #
 @app.route('/logout')
 def render_logout():
     print(list(session.keys()))
@@ -168,11 +173,12 @@ def render_admin():
     if not is_logged_in():
         return redirect('/?message=Need+to+be+logged+in.')
     con = create_connection(DATABASE)
-    # Fetch the categories
+    # Fetch the categories #
     query = "SELECT * FROM category"
     cur = con.cursor()
     cur.execute(query)
     category_list = cur.fetchall()
+    # Fetch the words #
     query = "SELECT * FROM words"
     cur.execute(query)
     word_list = cur.fetchall()
@@ -181,6 +187,7 @@ def render_admin():
                            adminbool=is_admin())
 
 
+# Adds a category with the name from the HTML form #
 @app.route('/add_category', methods=['POST', 'GET'])
 def render_add_category():
     if request.method == "POST":
@@ -194,6 +201,7 @@ def render_add_category():
         return redirect('/admin')
 
 
+# If the user is an admin it will delete the category that the user has selected #
 @app.route('/delete_category', methods=['POST'])
 def render_delete_category():
     if not is_admin():
@@ -207,6 +215,7 @@ def render_delete_category():
     return redirect("/admin")
 
 
+# Deletes the category that the user has selected if they confirmed it #
 @app.route('/delete_category_confirm/<cat_id>')
 def delete_category_confirm(cat_id):
     if not is_logged_in():
@@ -220,10 +229,10 @@ def delete_category_confirm(cat_id):
     return redirect("/admin")
 
 
+# Adds a word to the words table with the user that has done its user id #
 @app.route('/add_word', methods=['POST'])
 def render_add_word():
     if request.method == "POST":
-        word_info = request.form
         maori_word = request.form.get('Maori').title().strip()
         english_word = request.form.get('English').title().strip()
         definition = request.form.get('Definition').lower().strip()
@@ -231,18 +240,19 @@ def render_add_word():
         category = request.form.get('cat_id').lower().strip()[1]
         image = request.form.get('Image').strip()
         con = create_connection(DATABASE)
-        query = f"SELECT id FROM user"
+        query = "SELECT id FROM user"
         cur = con.cursor()
         cur.execute(query)
         last_edited = cur.fetchone()
         query = "INSERT INTO words (Maori_Word, English_Word, Definition, Level, category, image, last_edited) " \
                 "VALUES(?, ?, ?, ?, ?, ?, ?)"
-        cur.execute(query, (maori_word, english_word, definition, level, category, image, last_edited[0]))
+        cur.execute(query, (maori_word, english_word, definition, level, category, image, session['user_id']))
         con.commit()
         con.close()
         return redirect('/admin')
 
 
+# Deletes a word that the user specifies #
 @app.route('/delete_word', methods=['POST'])
 def render_delete_word():
     if not is_admin():
@@ -256,6 +266,7 @@ def render_delete_word():
     return redirect("/admin")
 
 
+# If the user confirms that they want to delete the word then it removes the word from the database #
 @app.route('/delete_word_confirm/<word_id>')
 def delete_word_confirm(word_id):
     if not is_logged_in():
