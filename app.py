@@ -77,7 +77,7 @@ def render_dictionary(category):  # put application's code here
     current_category = category_list[int(category) - 1][1]
     con.close()
 
-    return render_template("/Dictionary.html", words=word_list, filter=current_category, logged_in=is_logged_in(),
+    return render_template("Dictionary.html", words=word_list, filter=current_category, logged_in=is_logged_in(),
                            categories=category_list, adminbool=is_admin())
 
 
@@ -237,13 +237,12 @@ def render_add_word():
         english_word = request.form.get('English').title().strip()
         definition = request.form.get('Definition').lower().strip()
         level = request.form.get('Level').lower().strip()
+        if level > 10:
+            level = 10
         category = request.form.get('cat_id').lower().strip()[1]
         image = request.form.get('Image').strip()
         con = create_connection(DATABASE)
-        query = "SELECT id FROM user"
         cur = con.cursor()
-        cur.execute(query)
-        last_edited = cur.fetchone()
         query = "INSERT INTO words (Maori_Word, English_Word, Definition, Level, category, image, last_edited) " \
                 "VALUES(?, ?, ?, ?, ?, ?, ?)"
         cur.execute(query, (maori_word, english_word, definition, level, category, image, session['user_id']))
