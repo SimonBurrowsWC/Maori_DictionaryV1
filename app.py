@@ -246,7 +246,7 @@ def render_add_word():
         english_word = request.form.get('English').title().strip()
         definition = request.form.get('Definition').lower().strip()
         level = request.form.get('Level').lower().strip()
-        if level > 10:
+        if int(level) > 10:
             level = 10
         category = request.form.get('cat_id').lower().strip()[1]
         image = request.form.get('Image').strip()
