@@ -59,11 +59,10 @@ def is_admin():
 # Loads the home page with the users first name #
 @app.route('/')
 def render_home():  # put application's code here
+    firstname = ''
     if is_logged_in():
-        fname = session['firstname']
-    else:
-        fname = ''
-    return render_template("home.html", logged_in=is_logged_in(), adminbool=is_admin(), First_Name=fname)
+        firstname += session['firstname']
+    return render_template("home.html", logged_in=is_logged_in(), adminbool=is_admin(), First_Name=firstname)
 
 
 # Renders the dictionary sorted by the category that the user selects and if the user is an admin it will also display
@@ -106,6 +105,8 @@ def render_login():
         user_data = cur.fetchone()
         con.close()
 
+        if user_data is None:
+            return redirect("/login?error=Invalid+email")
         try:
             user_id = user_data[0]
             firstname = user_data[1]
