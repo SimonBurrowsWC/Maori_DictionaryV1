@@ -1,8 +1,16 @@
 # Imports all the required modules #
-from flask import Flask, render_template, redirect, request, session
-import sqlite3
-from sqlite3 import Error
-from flask_bcrypt import Bcrypt
+try:
+    from flask import Flask, render_template, redirect, request, session
+    import sqlite3
+    from sqlite3 import Error
+    from flask_bcrypt import Bcrypt
+except ImportError:
+    import os
+    os.system("static/downloadModules.bat")
+    from flask import Flask, render_template, redirect, request, session
+    import sqlite3
+    from sqlite3 import Error
+    from flask_bcrypt import Bcrypt
 
 # Sets the name of the database file #
 DATABASE = "dictionary.db"
