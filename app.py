@@ -81,9 +81,9 @@ def render_dictionary(category):  # put application's code here
                            categories=category_list, adminbool=is_admin())
 
 
-# If the user is logged in it will redirect them to the home page #
+# A page for logging the user in and if the user is logged in it will redirect them to the home page #
 @app.route('/login', methods=['POST', 'GET'])
-def render_login():  # put application's code here
+def render_login():
     if is_logged_in():
         return redirect('/')
     print("Loging in")

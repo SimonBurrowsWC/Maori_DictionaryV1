@@ -10,14 +10,17 @@ Dictionary
 
 {% block main %}
     <div class="Dictionary">
+        <!-- Shows the user the current filer -->
         <h3>Sort: {{ filter }}</h3>
         <div class = "Sort_Menu">
+            <!-- Gives an unordered list of all the categories -->
             <ul>
                 {% for category in categories %}
                     <li><a href="/dictionary/filter_by:{{ category[0] }}">{{ category[1] }}</a></li>
                 {% endfor %}
             </ul>
         </div>
+        <!-- Gives a list of all the words in the selected category -->
         {% for word in words %}
             <div class="Word-Box">
                 <h2>Maori: {{ word[1] }}</h2>
@@ -27,6 +30,7 @@ Dictionary
                 <p><b>Category: {{ filter }}</b></p>
                 <p><b>Photo:</b></p>
                 <img src = "/static/images/{{ word[6]}}" onerror="this.onerror=null; this.src='/static/images/noimage.png'" alt="{{word[6]}}">
+                <!-- If the user is an admin then it will show the user who last edited it and an option to edit the word -->
                 {% if adminbool == True %}
                     <p>Last edited: {{ word[7] }}</p>
                     <a href="/admin">Edit Word</a>

@@ -10,6 +10,9 @@ Administration
 
 {% block main %}
 <h3>Category Admin</h3>
+    <!-- For adding a category -->
+    <!-- Shows the user options to add a category with a text box as input -->
+    <!-- Once the user has confirmed that they want a new category it will insert and submit the value into the 'category' table-->
 <h4>Add a category</h4>
 <form class="myform" method="post" action="/add_category">
     <div class="form-group">
@@ -21,6 +24,9 @@ Administration
         <div class="form-element"><input type="submit" value="Add Category"></div>
     </div>
 </form>
+    <!-- For deleting a category-->
+    <!-- Gives the user a dropdown box with all the categories in the 'category' table -->
+    <!-- Once the user says that they want to delete a category it will give them a prompt to cancel the deleting so they no not accidentally delete a category -->
 <h4>Delete a category</h4>
 <form class="myform" method="post" action="/delete_category">
     <div class="form-group">
@@ -40,6 +46,9 @@ Administration
 </form>
 
 <h3>Word Admin</h3>
+    <!-- For adding words to the dictionary -->
+    <!-- Has three text box's for the word, it's translation and the definition; a number for the level; a dropdown box for the category; and an image if the user has one-->
+    <!-- It with submit a new word to the  words table with the information specified-->
 <h4>Add a word</h4>
 <form class="myform" method="post" action="/add_word">
     <div class="form-group">
@@ -66,6 +75,9 @@ Administration
     </div>
 </form>
 <h4>Delete a word</h4>
+    <!-- For deleting words from the database -->
+    <!-- Gives a dropdown box of all words for the user to select -->
+    <!-- Sends the user to the delete confirmation page if they click submit -->
 <form class="myform" method="post" action="/delete_word">
     <div class="form-group">
         <div class="form-label"> <label for="name">Word: </label></div>

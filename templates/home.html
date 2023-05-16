@@ -9,6 +9,7 @@ Home
 {% endblock %}
 
 {% block main %}
+    <!-- Says hello to the user specifically if they are logged in and generally if they aren't-->
     {% if logged_in %}
         <h3>Hello there {{ First_Name }}!</h3>
     {% else %}
